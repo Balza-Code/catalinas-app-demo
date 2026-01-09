@@ -29,7 +29,9 @@ export async function registerUser(req, res) {
   } 
 };
 
+
 export async function loginUser(req, res) {
+  try {
   const { email, password } = req.body;
 
   try {
@@ -50,4 +52,9 @@ export async function loginUser(req, res) {
   } catch (error) {
     res.status(500).json({ mensaje: 'Error del servidor ', error})
   }
+} catch (error) {
+    console.error("🔴 ERROR FATAL EN LOGIN:", error); // <--- Esto es vital para ver el error en los logs
+    res.status(500).json({ message: "Error en el servidor", error: error.message });
+  }
+
 };
