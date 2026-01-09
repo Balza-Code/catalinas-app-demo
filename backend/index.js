@@ -80,4 +80,4 @@ app.get('/', (req, res) => {
 // Nota: no llamamos a `app.listen` aquí porque ya iniciamos el servidor
 // dentro del `.then()` después de conectar a la base de datos. Esto evita
 // intentar iniciar el servidor dos veces (y errores EADDRINUSE).
-module.exports = app;
+export default app;
