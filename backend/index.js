@@ -12,13 +12,11 @@ import router from "./routers/orderRoutes.js";
 // 2. Crear una instancia de la aplicación express
 const app = express();
 
+// Configuración "Espejo": Acepta automáticamente el origen que hace la petición
 app.use(cors({
-  origin: [
-    "http://localhost:5173", // Para que sigas trabajando en local
-    "https://catalinas-app-demo-sxgx-qqcht5pda-balza-codes-projects.vercel.app/login" // <--- TU URL DE VERCEL
-  ],
-  credentials: true // Esto permite pasar las cookies/headers de sesión
-})); // <-- Usar Cors (¿Ponerlo antes de las rutas!)
+  origin: true, 
+  credentials: true
+}));
 
 // 3. Definir un puerto para que el servidor escuche
 // Usa una variable de entorno si está disponible, o el puerto 4000 por defecto
