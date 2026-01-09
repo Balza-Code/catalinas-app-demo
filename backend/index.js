@@ -65,9 +65,11 @@ if (process.env.MONGO_URI) {
     });
 } else {
   console.warn('ADVERTENCIA: `MONGO_URI` no está definida. Iniciando servidor sin conexión a MongoDB.');
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-  });
+  if (!process.env.VERCEL) {
+          app.listen(PORT, () => {
+            console.log(`Servidor local corriendo en puerto ${PORT}`);
+          });
+      }
 }
 
 // 4. Crear una ruta de pureba para ver si el servidor responde
