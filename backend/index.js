@@ -4,7 +4,7 @@
 import cors from "cors";
 import express from 'express';
 import mongoose from 'mongoose';
-import authRoutes from "../routers/authRoutes.js";
+import authRoutes from "./routers/authRoutes.js";
 import catalinaRoutes from './routers/catalinaRoutes.js';
 import router from "./routers/orderRoutes.js";
 
