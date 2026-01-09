@@ -15,7 +15,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173", // Para que sigas trabajando en local
-    "https://catalinas-app-demo-sxgx-qqcht5pda-balza-codes-projects.vercel.app" // <--- TU URL DE VERCEL
+    "https://catalinas-app-demo-sxgx-qqcht5pda-balza-codes-projects.vercel.app/login" // <--- TU URL DE VERCEL
   ],
   credentials: true // Esto permite pasar las cookies/headers de sesión
 })); // <-- Usar Cors (¿Ponerlo antes de las rutas!)
