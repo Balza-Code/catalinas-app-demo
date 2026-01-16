@@ -34,7 +34,16 @@ export const Loginpage = () => {
     }
   };
   return (
-   <div className="min-h-screen flex items-center justify-center bg-[#f5f0e6] px-4">
+   <div className="min-h-screen flex flex-colgit items-center justify-center bg-[#f5f0e6] px-4">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 w-full max-w-md text-center">
+        <h3 className="text-lg font-semibold text-blue-800 mb-2">¡Bienvenido a la Demo de Catalinas!</h3>
+        <p className="text-sm text-blue-700 mb-2">
+          Puedes entrar al panel de admin con estas credenciales: <strong>demo@demo.com</strong> y contraseña: <strong>demo</strong>.
+        </p>
+        <p className="text-sm text-blue-700">
+          También puedes crearte un perfil para entrar como cliente y ver todas las funcionalidades de la app.
+        </p>
+      </div>
       {showRegister ? (
         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
           <button
