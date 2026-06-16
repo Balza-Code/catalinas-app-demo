@@ -1,0 +1,71 @@
+// src/pages/CustomerDashboard.jsx
+import { OrderList } from '../components/OrderList';
+import { useCatalinas } from '../hooks/useCatalinas';
+import useOrders from '../hooks/useOrders';
+import { createOrder, updateOrder } from '../services/orderService';
+import { useModal } from '../context/ModalContext';
+
+function CustomerDashboard() {
+  
+  // 1. Asegúrate de estar obteniendo 'setOrders' del hook
+  const { orders, setOrders } = useOrders();
+  const { showModal } = useModal()
+
+  
+
+  // --- NUEVA FUNCIÓN (idéntica a la del Admin) ---
+  const handleReceiptUploaded = (updatedOrder) => {
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === updatedOrder._id ? updatedOrder : order
+      )
+    );
+  };
+
+  const handleUpdateOrder = async (orderId, updateData) => {
+    console.log("🛠️ 1. Dashboard recibió la orden de actualizar:", orderId, updateData);
+    
+    try {
+      console.log("📡 2. Intentando llamar al servicio 'updateOrder'...");
+      const response = await updateOrder(orderId, updateData); 
+      
+      console.log("✅ 3. El servidor respondió con éxito:", response);
+      
+      const updatedObject = Array.isArray(response) 
+        ? response.find(o => o._id === orderId) 
+        : response;
+
+      if (updatedObject) {
+        console.log("✨ 4. Actualizando la lista de pedidos en pantalla con:", updatedObject.estado);
+        setOrders(prevOrders => prevOrders.map(order => 
+          order._id === orderId ? { ...order, ...updatedObject } : order
+        ));
+        
+        if (updateData.estado === "Cancelado") {
+           showModal({ title: 'Pedido Cancelado', message: 'El pedido ha sido cancelado exitosamente.' });
+        }
+      } else {
+        console.warn("⚠️ 5. Se recibió respuesta pero no se encontró el pedido con ID:", orderId);
+      }
+    } catch (error) {
+      console.error("🚨 6. ERROR CAPTURADO EN EL DASHBOARD:", error);
+      showModal({ title: 'Error', message: 'No se pudo cancelar el pedido: ' + error.message });
+    }
+  };
+
+  return (
+    <div className="md:mt-0 z-20 max-h-full bg-surface-bg p-4 md:p-6 md:max-h-[540px] rounded-card">
+      <section className="max-w-6xl mx-auto">
+        <h2 className="text-2xl font-black text-slate-800 tracking-tight mb-6">Historial de Pedidos</h2>
+        
+        <OrderList
+          orders={orders}
+          onReceiptUploaded={handleReceiptUploaded}
+          onUpdateOrder={handleUpdateOrder}
+        />
+      </section>
+    </div>
+  );
+}
+
+export default CustomerDashboard;
