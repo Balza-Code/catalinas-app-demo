@@ -35,11 +35,9 @@ export const Loginpage = () => {
   };
   return (
     
-    <div>
-      hola mundo
-    </div>
 
     <div className="min-h-screen flex items-center justify-center bg-surface-bg px-4">
+      <div>hola mundo</div>
       {showRegister ? (
         <div className="bg-surface-card p-8 rounded-card border border-surface-border shadow-2xl w-full max-w-md">
           <button
